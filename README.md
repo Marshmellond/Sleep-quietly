@@ -38,6 +38,8 @@
 - pydub
 - pyttsx3
 
+> Linux 不能用
+
 ## 项目结构
 
 ```shell

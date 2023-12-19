@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import pyaudio
 import wave
 from pydub import AudioSegment
@@ -134,30 +136,29 @@ def main():
     print("本程序，如果周围环境音量超过指定大小，将播放")
     x = input("[1]系统警告声|[2]指定一段话|[3]录音|[4]音频：")
     db = int(input("指定超过多少音量播放(1-100)："))
-    match x:
-        case "1":
-            while True:
-                my_main.get_audio()
-                my_main.get_decibel()
-                my_main.play_alarm_sound(db)
-        case "2":
-            name = input("指定一段话：")
-            while True:
-                my_main.get_audio()
-                my_main.get_decibel()
-                my_main.play_people_sound(db, name)
-        case "3":
-            time = int(input("单次录音时长:"))
-            while True:
-                my_main.get_audio(time)
-                my_main.get_decibel()
-                my_main.play_sound_recording(db)
-        case "4":
-            name = input("音频文件路径[wav格式]:")
-            while True:
-                my_main.get_audio()
-                my_main.get_decibel()
-                my_main.play_sound_lili(db, name)
+    if x == "1":
+        while True:
+            my_main.get_audio()
+            my_main.get_decibel()
+            my_main.play_alarm_sound(db)
+    elif x == "2":
+        name = input("指定一段话：")
+        while True:
+            my_main.get_audio()
+            my_main.get_decibel()
+            my_main.play_people_sound(db, name)
+    elif x == "3":
+        time = int(input("单次录音时长:"))
+        while True:
+            my_main.get_audio(time)
+            my_main.get_decibel()
+            my_main.play_sound_recording(db)
+    elif x == "4":
+        name = input("音频文件路径[wav格式]:")
+        while True:
+            my_main.get_audio()
+            my_main.get_decibel()
+            my_main.play_sound_lili(db, name)
 
 
 if __name__ == '__main__':
