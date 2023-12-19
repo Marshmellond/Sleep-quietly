@@ -132,7 +132,7 @@ class Microphone:
 def main():
     my_main = Microphone()
     print("本程序，如果周围环境音量超过指定大小，将播放")
-    x = input("[1]警告声|[2]文字|[3]录音|[4]音频：")
+    x = input("[1]系统警告声|[2]指定一段话|[3]录音|[4]音频：")
     db = int(input("指定超过多少音量播放(1-100)："))
     match x:
         case "1":
@@ -141,7 +141,7 @@ def main():
                 my_main.get_decibel()
                 my_main.play_alarm_sound(db)
         case "2":
-            name = input("输入文字：")
+            name = input("指定一段话：")
             while True:
                 my_main.get_audio()
                 my_main.get_decibel()
