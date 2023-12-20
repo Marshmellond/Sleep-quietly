@@ -33,12 +33,27 @@
 
 ## 环境
 
-- python3
-- pyaudio
-- pydub
-- pyttsx3
+# 安装 ffmpeg
+https://ffmpeg.org/
 
-> Linux 不能用
+```shell
+# 克隆仓库
+git clone https://github.com/Marshmellond/Sleep-quietly.git
+cd Sleep-quietly
+
+# 使用conda
+conda create -n sleep python=3.11
+conda activate sleep
+pip install -r requirements.txt
+# 启动
+python main.py
+```
+
+> Linux 安装 pyaudio前 需要安装依赖
+
+```shell
+sudo apt-get install libasound-dev portaudio19-dev libportaudio2 libportaudiocpp0 ffmpeg
+```
 
 ## 项目结构
 

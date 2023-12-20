@@ -2,10 +2,9 @@
 
 import pyaudio
 import wave
-from pydub import AudioSegment
-import winsound
 import pyttsx3
-
+import os
+from pydub import AudioSegment
 
 class Microphone:
     def __init__(self):
@@ -23,7 +22,7 @@ class Microphone:
         _CHANNELS = 1  # 通道数
         _RATE = 11025  # 采样率
         _RECORD_SECONDS = _time  # 录制时间
-        _WAVE_OUTPUT_FILENAME = "temp.wav"  # 临时音频文件名
+        _WAVE_OUTPUT_FILENAME = ".temp.wav"  # 临时音频文件名
 
         p = pyaudio.PyAudio()
         stream = p.open(format=_FORMAT,
@@ -51,7 +50,7 @@ class Microphone:
         获取音频文件的分贝
         :return: None
         """
-        sound = AudioSegment.from_file("temp.wav", "wav")  # 加载WAV文件
+        sound = AudioSegment.from_file(".temp.wav", "wav")  # 加载WAV文件
         _db = sound.dBFS  # 取得音频文件的声音分贝值
         _x = [i for i in range(0, 101)]
         _x.reverse()
@@ -59,15 +58,6 @@ class Microphone:
             _db = -100
         self.db = _x[abs(int(_db))]
         print(self.db)
-
-    def play_alarm_sound(self, _db) -> None:
-        """
-        播放警报声
-        :param _db:分贝
-        :return: None
-        """
-        if self.db >= _db:
-            winsound.Beep(600, 1000)
 
     def play_people_sound(self, _db, _name) -> None:
         """
@@ -91,7 +81,7 @@ class Microphone:
         """
         if self.db >= _db:
             _CHUNK = 1024
-            wf = wave.open("temp.wav", 'rb')
+            wf = wave.open(".temp.wav", 'rb')
             p = pyaudio.PyAudio()
             stream = p.open(format=p.get_format_from_width(wf.getsampwidth()),
                             channels=wf.getnchannels(),
@@ -130,36 +120,35 @@ class Microphone:
             wf.close()
             p.terminate()
 
+def getinput(msg: str):
+    while True:
+        try:
+            return int(input(msg).strip())
+        except TypeError:
+            continue
 
 def main():
     my_main = Microphone()
-    print("本程序，如果周围环境音量超过指定大小，将播放")
-    x = input("[1]系统警告声|[2]指定一段话|[3]录音|[4]音频：")
-    db = int(input("指定超过多少音量播放(1-100)："))
-    if x == "1":
-        while True:
-            my_main.get_audio()
-            my_main.get_decibel()
-            my_main.play_alarm_sound(db)
-    elif x == "2":
-        name = input("指定一段话：")
-        while True:
-            my_main.get_audio()
-            my_main.get_decibel()
-            my_main.play_people_sound(db, name)
-    elif x == "3":
-        time = int(input("单次录音时长:"))
-        while True:
-            my_main.get_audio(time)
-            my_main.get_decibel()
-            my_main.play_sound_recording(db)
-    elif x == "4":
-        name = input("音频文件路径[wav格式]:")
-        while True:
-            my_main.get_audio()
-            my_main.get_decibel()
-            my_main.play_sound_lili(db, name)
+    print("睡觉神器,启动! 如果你的室友狗叫, 以以下方式回击(输入序号):")
+    sounds = os.listdir("./sounds/")
+    for n, i in enumerate(sounds):
+        print(f"[{n + 1}]  {i[:-4]}")
+    
+    selected = getinput(">") - 1
+
+    
+    db = getinput("输入反击触发阈值(1-100):")
+
+    while True:
+        my_main.get_audio()
+        my_main.get_decibel()
+        my_main.play_sound_lili(db, "./sounds/" + sounds[selected])
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except OSError as e:
+        if e.args[1] == "Invalid input device (no default output device)":
+            print("请连接音响和麦克风.")
+            exit()
