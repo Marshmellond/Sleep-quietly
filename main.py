@@ -124,7 +124,7 @@ def getinput(msg: str):
     while True:
         try:
             return int(input(msg).strip())
-        except TypeError:
+        except ValueError:
             continue
 
 def main():
