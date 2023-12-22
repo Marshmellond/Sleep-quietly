@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
-import pyaudio
 import wave
-import pyttsx3
 import os
+import pyttsx3
+
 from pydub import AudioSegment
+import pyaudio
+
 
 class Microphone:
     def __init__(self):
@@ -120,6 +122,7 @@ class Microphone:
             wf.close()
             p.terminate()
 
+
 def getinput(msg: str):
     while True:
         try:
@@ -127,16 +130,16 @@ def getinput(msg: str):
         except ValueError:
             continue
 
+
 def main():
     my_main = Microphone()
     print("睡觉神器,启动! 如果你的室友狗叫, 以以下方式回击(输入序号):")
     sounds = os.listdir("./sounds/")
     for n, i in enumerate(sounds):
         print(f"[{n + 1}]  {i[:-4]}")
-    
+
     selected = getinput(">") - 1
 
-    
     db = getinput("输入反击触发阈值(1-100):")
 
     while True:
