@@ -1,5 +1,5 @@
 <div align="center"><h1>大学宿舍睡觉神器</h1></div>
-<div align="center"><img src="https://s2.loli.net/2023/12/19/Sglnke4oCXPOiYW.png" ></div>
+<div align="center"><img src="https://cdn1.d5v.cc/CDN/Image/68747470733a2f2f73322e6c6f6c692e6e65742f323032332f31322f31392f53676c6e6b65346f4358504f6959572e706e67.png" ></div>
 
 ## 如果你的舍友有如下情况
 
